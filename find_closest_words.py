@@ -25,12 +25,14 @@ word_vectors.pop(0)
 max_cosine_vector = word_vectors.pop(0)
 
 max_cosine_vector["cosine_similarity"] = 1 - spatial.distance.cosine(word_to_test["vector"], max_cosine_vector["vector"])
+#max_cosine_vector["cosine_similarity"] = numpy.linalg.norm(word_to_test["vector"] - max_cosine_vector["vector"], 2)
 for word_vector in word_vectors:
     if max_cosine_vector["vector"].shape[0] == word_vector["vector"].shape[0]:
         word_vector["cosine_similarity"] = 1 - spatial.distance.cosine(word_to_test["vector"], word_vector["vector"])
+        #word_vector["cosine_similarity"] = numpy.linalg.norm(word_to_test["vector"] - word_vector["vector"], 2)
 
 from operator import itemgetter
-newlist = sorted(word_vectors, key=itemgetter('cosine_similarity'), reverse=True)
+newlist = sorted(word_vectors, key=itemgetter('cosine_similarity'), reverse=False)
 
 for i in range(150):
     print(newlist[i]["word"], newlist[i]["cosine_similarity"])
