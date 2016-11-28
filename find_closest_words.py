@@ -32,7 +32,13 @@ for word_vector in word_vectors:
         #word_vector["cosine_similarity"] = numpy.linalg.norm(word_to_test["vector"] - word_vector["vector"], 2)
 
 from operator import itemgetter
-newlist = sorted(word_vectors, key=itemgetter('cosine_similarity'), reverse=False)
+newlist = sorted(word_vectors, key=itemgetter('cosine_similarity'), reverse=True)
 
-for i in range(150):
+dic = {}
+for i in range(20):
+    dic[newlist[i]["word"]] = newlist[i]["cosine_similarity"]
     print(newlist[i]["word"], newlist[i]["cosine_similarity"])
+
+import json
+with open('static/result.json', 'w') as outfile:
+    json.dump(dic, outfile)
